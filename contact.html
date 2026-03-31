@@ -198,6 +198,25 @@
             padding: 20px;
         }
 
+
+        /* Add this to your CSS section */
+.nav-logo {
+    height: 50px;    /* Adjust this height to fit your logo preference */
+    width: auto;     /* Keeps the logo from stretching */
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.nav-logo:hover {
+    transform: scale(1.05); /* Optional: slight pop when hovering */
+}
+
+/* Ensure the container doesn't push things around */
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
         /* ================================================================
            6. MOBILE RESPONSIVENESS
            ================================================================
@@ -239,7 +258,11 @@
 
     <header>
         <div class="left-nav">
-            <h1>Fucking Logo</h1>
+            <div class="logo-container">
+    <a href="index.html">
+        <img src="images/LOGO1.jpg" alt="Karinderya Express Logo" class="nav-logo">
+    </a>
+</div>
             <nav>
                 <ul>
                     <li><a href="index.html">Home</a></li>
