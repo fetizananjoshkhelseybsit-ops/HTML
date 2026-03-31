@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Karindery Express Foods - Home</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: Arial;
+      margin: 0;
+      background: #f0f2f5;
+    }
+
+    /* CATEGORY */
+    .categories {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      padding: 10px;
+      background: white;
+    }
+
+    .categories button {
+      padding: 10px;
+      border: none;
+      cursor: pointer;
+      background: #ddd;
+      border-radius: 20px;
+    }
+
+    .categories button.active {
+      background: #ff4d4d;
+      color: white;
+    }
+
+    /* MENU GRID */
+    .menu {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+
+    /* CARD FRAME DESIGN */
+    .menu-card {
+      background: white;
+      border-radius: 15px;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      height: 300px; /* fixed */
+    }
+
+    .menu-card:hover {
+      transform: translateY(-5px);
+    }
+
+    /* IMAGE */
+    .menu-card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+    }
+
+    .menu-card-content {
+      flex: 1; /* fills space */
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      text-align: center;
+    }
+
+    /* BUTTON */
+    .add-btn {
+      background: #ff4d4d;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      cursor: pointer;
+      border-radius: 5px;
+      margin-top: 10px;
+    }
+
+    /* Animation Helper */
+    .flying-img {
+      position: fixed;
+      transition: all 0.7s ease-in-out;
+      z-index: 9999;
+      pointer-events: none;
+      object-fit: cover;
+    }
+  </style>
+</head>
+
+<body class="menu-page">
+  <header>
+    <div class="left-nav">
+      <h1>Fucking Logo</h1>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="menu.html">Menu</a></li>
+          <li><a href="aboutus.html">About Us</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <li id="checkout-btn" style="list-style: none;">
+      <a href="checkout.html">
+        CheckOut
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16" style="margin-left:5px; vertical-align: middle;">
+          <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
+        </svg>
+      </a>
+    </li>
+  </header>
+
+  <div class="categories">
+    <button onclick="filterMenu('all')" class="active">All</button>
+    <button onclick="filterMenu('non-soup')">Non-Soup</button>
+    <button onclick="filterMenu('soup')">Soup</button>
+    <button onclick="filterMenu('fried')">Fried</button>
+    <button onclick="filterMenu('drinks')">Drinks</button>
+  </div>
+
+  <div class="main-container">
+    <div class="menu" id="menu"></div>
+
+    <div class="cart">
+      <h2>🛒 Cart</h2>
+      <div id="cart-items"></div>
+      <h3>Total: ₱<span id="total">0</span></h3>
+
+      <div class="cart-actions" style="display: flex; gap: 10px;">
+        <button onclick="clearCart()" class="clear-btn">Clear</button>
+        <button onclick="checkout()" class="checkout-btn">Checkout</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="clearModal" class="modal-overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); justify-content:center; align-items:center;">
+    <div class="modal-content" style="background:white; padding:20px; border-radius:15px; text-align:center;">
+      <h3>Clear Cart?</h3>
+      <p>Are you sure you want to remove all items from your cart?</p>
+      <div class="modal-btns">
+        <button onclick="closeModal()" class="cancel-btn">Cancel</button>
+        <button onclick="confirmClear()" class="confirm-btn">Yes, Clear it</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const foods = [
+      { name: "Adobo", price: 80, category: "non-soup", img: "images/adobo.jpg" },
+      { name: "Adobong Kangkong with Tofu", price: 85, category: "non-soup", img: "images/Adobong Kangkong with Tofu.jpg" },
+      { name: "Adobong Sitaw", price: 75, category: "non-soup", img: "images/adobong sitaw.jpg" },
+      { name: "Beef Tapa", price: 120, category: "fried", img: "images/beef tapa.jpg" },
+      { name: "Bicol Express", price: 110, category: "non-soup", img: "images/bicol-express.avif" },
+      { name: "Buko Juice", price: 40, category: "drinks", img: "images/buko.jpg" },
+      { name: "Bukopandan", price: 50, category: "drinks", img: "images/bukopanda.jpg" },
+      { name: "Chicken Drumsticks", price: 95, category: "fried", img: "images/chicken drumsticks.jpg" },
+      { name: "Coffee", price: 30, category: "drinks", img: "images/coffee.jpg" },
+      { name: "Coke", price: 35, category: "drinks", img: "images/coke.jpg" },
+      { name: "Egg", price: 20, category: "fried", img: "images/egg.jpg" },
+      { name: "Fried Tofu", price: 60, category: "fried", img: "images/fried tofu.jpg" },
+      { name: "Kaldereta", price: 110, category: "non-soup", img: "images/kaldereta.jpg" },
+      { name: "Lebron", price: 150, category: "non-soup", img: "images/lebron.jpg" },
+      { name: "Melon Juice", price: 45, category: "drinks", img: "images/melon.jpg" },
+      { name: "Menudo", price: 100, category: "non-soup", img: "images/menudo.jpg" },
+      { name: "Mt. Dew", price: 35, category: "drinks", img: "images/mt.dew.jpg" },
+      { name: "Pinakbet", price: 85, category: "non-soup", img: "images/pinakbet.jpg" },
+      { name: "Pork Belly Kare-Kare", price: 130, category: "non-soup", img: "images/PorkBellyKare-Kare.jpg" },
+      { name: "Pork Bistek", price: 115, category: "non-soup", img: "images/Pork Bistek.jpg" },
+      { name: "Pritong Lumpiang Toque", price: 70, category: "fried", img: "images/prito-lumpiang-togue.jpg" },
+      { name: "Rice", price: 15, category: "non-soup", img: "images/rice.jpg" },
+      { name: "Sagot Gulaman", price: 30, category: "drinks", img: "images/sagotgulaman.jpg" },
+      { name: "Shanghai", price: 80, category: "fried", img: "images/shanghai.jpg" },
+      { name: "Sinigang na Baboy", price: 120, category: "soup", img: "images/sinigangnababoy.jpg" },
+      { name: "Sprite", price: 35, category: "drinks", img: "images/sprite.jpg" },
+      { name: "Sting", price: 25, category: "drinks", img: "images/sting.jpg" },
+      { name: "Tilapia", price: 95, category: "fried", img: "images/tilapia.jpg" }
+    ];
+
+    let cart = JSON.parse(localStorage.getItem("cart")) || {};
+
+    function displayMenu(filter = "all") {
+      const menu = document.getElementById("menu");
+      menu.innerHTML = "";
+
+      foods.forEach(food => {
+        if (filter === "all" || food.category === filter) {
+          menu.innerHTML += `
+            <div class="menu-card">
+              <img src="${food.img}" alt="${food.name}">
+              <div class="menu-card-content">
+                <h3>${food.name}</h3>
+                <p>₱${food.price}</p>
+                <button class="add-btn" onclick="addToCart('${food.name}', ${food.price}, '${food.img}')">Add</button>
+              </div>
+            </div>
+          `;
+        }
+      });
+    }
+
+    function filterMenu(category) {
+      document.querySelectorAll(".categories button").forEach(btn => btn.classList.remove("active"));
+      event.target.classList.add("active");
+      displayMenu(category);
+    }
+
+    // FIXED addToCart function to store the image path
+    function addToCart(name, price, img) {
+      if (!cart[name]) {
+        cart[name] = { price: price, qty: 1, img: img }; // img stored here
+      } else {
+        cart[name].qty++;
+      }
+      updateCart();
+
+      const btn = event.target;
+      btn.classList.add("success");
+      btn.innerText = "✔ Added";
+      btn.disabled = true;
+
+      setTimeout(() => {
+        btn.classList.remove("success");
+        btn.innerText = "Add";
+        btn.disabled = false;
+      }, 1200);
+
+      const card = btn.closest('.menu-card');
+      const itemImg = card.querySelector('img');
+      const cartBox = document.querySelector('.cart');
+
+      const flyingImg = itemImg.cloneNode(true);
+      flyingImg.classList.add('flying-img');
+      document.body.appendChild(flyingImg);
+
+      const imgRect = itemImg.getBoundingClientRect();
+      const cartRect = cartBox.getBoundingClientRect();
+
+      flyingImg.style.left = imgRect.left + "px";
+      flyingImg.style.top = imgRect.top + "px";
+      flyingImg.style.width = imgRect.width + "px";
+
+      flyingImg.getBoundingClientRect();
+
+      setTimeout(() => {
+        flyingImg.style.left = cartRect.left + "px";
+        flyingImg.style.top = cartRect.top + "px";
+        flyingImg.style.width = "20px";
+        flyingImg.style.opacity = "0.5";
+      }, 50);
+
+      setTimeout(() => {
+        flyingImg.remove();
+      }, 700);
+    }
+
+    function updateCart() {
+      const cartDiv = document.getElementById("cart-items");
+      cartDiv.innerHTML = "";
+      let total = 0;
+
+      for (let item in cart) {
+        total += cart[item].price * cart[item].qty;
+        cartDiv.innerHTML += `
+          <div class="cart-item" style="display:flex; justify-content:space-between; margin-bottom:5px;">
+            <div class="cart-name">${item} (${cart[item].qty})</div>
+            <div class="cart-controls">
+              <button onclick="changeQty('${item}', -1)">-</button>
+              <button onclick="changeQty('${item}', 1)">+</button>
+            </div>
+          </div>
+        `;
+      }
+
+      document.getElementById("total").innerText = total;
+      localStorage.setItem("cart", JSON.stringify(cart));
+    }
+
+    function changeQty(item, change) {
+      if (cart[item].qty + change <= 0) {
+        delete cart[item];
+      } else {
+        cart[item].qty += change;
+      }
+      updateCart();
+    }
+
+    function checkout() {
+      if (Object.keys(cart).length === 0) {
+        alert("Cart is empty!");
+        return;
+      }
+      localStorage.setItem("cart", JSON.stringify(cart));
+      window.open("checkout.html", "_self");
+    }
+
+    function clearCart() {
+      if (Object.keys(cart).length === 0) return;
+      document.getElementById("clearModal").style.display = "flex";
+    }
+
+    function closeModal() {
+      document.getElementById("clearModal").style.display = "none";
+    }
+
+    function confirmClear() {
+      cart = {};
+      localStorage.removeItem("cart");
+      updateCart();
+      closeModal();
+    }
+
+    displayMenu();
+    updateCart();
+  </script>
+</body>
+</html>

@@ -1,0 +1,792 @@
+/* --- Reset --- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  
+}
+
+body {
+  font-family: 'Geist', sans-serif;
+  background: #fff8f0;
+  color: #333;
+  line-height: 1.6;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* --- Navigation Bar --- */
+header {
+  background-color: white;
+  
+  padding: 0 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  
+  width: 100%;
+  max-width: 1642px;
+  height: 158px;
+  margin: 0 auto;
+  box-shadow: 0px -2px 3px #614104;
+}
+
+header h1 {
+  font-size: 32px;
+  color : black;
+  font-weight: 500;
+}
+.left-nav{
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 50px;
+  align-items: center;
+}
+
+#checkout-btn a{
+  font-size: 32px;
+  font-weight: 500;
+  color: white;
+  text-decoration: none;
+
+  background: #4a3203;
+  padding: 8px 15px;
+  border-radius: 5px;
+
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+#checkout-btn{
+  list-style: none;
+  display: flex;
+  align-items: center;
+
+  margin-left: auto;
+}
+
+nav ul li a {
+  color: black;
+  font-size: 32px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+nav ul li a:hover {
+  color: #614104;
+}
+
+
+nav ul li#checkout-btn a:hover {
+  background: #4a3203 ;
+}
+
+/* --- Hero Section --- */
+.hero {
+  background-image: url("images/hero.png");
+  height: 50vh;
+  display: flex;
+  align-items: center;
+  padding: 50px;
+  color: white;
+  position: relative;
+
+}
+
+.btn:hover {
+  background: darkorange;
+  transform: translateY(-2px);
+  transition: 0.3s;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.4); 
+}
+
+.hero-text {
+  position: relative;
+  z-index: 2;
+}
+
+.hero h1 {
+  font-size: clamp(32px, 5vw, 72px);   
+  font-weight: 900; 
+  line-height: 1.1;
+  max-width: 700px;
+}
+
+
+.btn {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 12px 28px;
+  background: orange;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+/* --- Our Popular Dishes --- */
+
+.popular{
+  padding: 80px 100px;
+  margin-top: 70px;
+}
+
+.popular h2{
+  font-family: 'Gantari', sans-serif;
+  font-weight: 700;
+  font-size: clamp(40px, 6vw, 96px); 
+  margin-bottom: 90px;
+}
+
+.dish{
+  flex: 1;
+  min-width: 180px;
+  text-align: center;
+  color: white;
+  padding-top: 40px;
+}
+
+.dish-container{
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+  background: #4a3203;
+  padding: 60px 40px 40px;
+  border-radius: 20px;
+  flex-wrap: nowrap;
+  overflow: visible;
+}
+
+.dish h3 {
+  font-family: 'Fira Sans', sans-serif;
+  font-weight: 600;
+  font-size: 40px;
+  
+}
+
+.dish p{
+  font-family: 'Gantari', sans-serif;
+  font-weight: 300;
+  font-style: italic;
+  font-size: 32px;
+  
+  margin-top: 5px;
+}
+
+.dish img {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 50%;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+
+  margin-top: -180px;
+}
+
+/* --- Craving Comfort Food? --- */
+.feature {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 50px;
+  gap: 30px;
+
+  margin-top: 100px;
+}
+
+.feature img {
+  height: 660px;
+  width: 936px;
+  max-width: 100%;
+  flex-shrink: 0;
+}
+
+.feature-text {
+  flex: 1;
+  align-self: flex-end;
+  margin-bottom: 50px; 
+}
+
+.feature-text h2 {
+  font-size: 40px;
+  font-weight: bold;
+  font-family: "Gantari", sans-serif;
+}
+
+.feature-text p {
+  font-size: 27px;
+  font-weight: normal;
+  font-family: "Gantari", sans-serif;
+}
+
+/* Features */
+.services {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  padding: 50px;
+  margin-top: 100px;
+}
+
+.card {
+  background: #eee;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.home .card h3 {
+  font-size: 40px;
+  font-weight: bold;
+  font-family: "Gantari", sans-serif;
+}
+.card p {
+  font-size: 27px;
+  font-weight: normal;
+  font-family: "Gantari", sans-serif;
+}
+
+.card img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+/* FOOTER */
+footer {
+  background: #6b4b00;
+  color: white;
+  padding: 30px;
+  text-align: center;
+  margin-top: 250px;
+}
+
+
+
+
+
+/* --- Menu Section --- */
+.menu {
+  padding: 2rem;
+  text-align: center;
+}
+
+.menu h2 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.menu-items {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.menu-item {
+  background: #fff;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: transform 0.3s;
+}
+
+.menu-item:hover {
+  transform: translateY(-5px);
+}
+
+.menu-item img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.menu-item h3 {
+  margin: 0.5rem 0;
+  color: #ff6347;
+}
+
+.menu-item p {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.menu-item span {
+  font-weight: bold;
+  color: #333;
+  display: block;
+  margin: 0.5rem 0;
+}
+
+.menu-item button {
+  background: #ff6347;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.menu-item button:hover {
+  background: #e5533d;
+}
+
+/* --- Cart Section (for checkout.html) --- */
+#cart {
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  width: 300px;
+  max-height: 80vh;
+  background: #fff;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  overflow-y: auto;
+  z-index: 2000;
+}
+
+#cart h3 {
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #ff6347;
+}
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.cart-item span {
+  margin: 0 5px;
+}
+
+.cart-item button {
+  background: #ff6347;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  padding: 0.2rem 0.5rem;
+  cursor: pointer;
+}
+
+.cart-item button:hover {
+  background: #e5533d;
+}
+
+#cart-total {
+  font-weight: bold;
+  margin-top: 1rem;
+  text-align: center;
+}
+
+#clear-cart {
+  margin-top: 0.5rem;
+  background: #333;
+  color: #fff;
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#clear-cart:hover {
+  background: #555;
+}
+
+/* --- Responsive --- */
+@media(max-width:768px){
+  header {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .hero h2 {
+    font-size: 2rem;
+  }
+  #cart {
+    position: static;
+    width: 90%;
+    margin: 1rem auto;
+  }
+  .menu-items {
+    gap: 1rem;
+  }
+}
+
+/* Checkout button */
+#checkout-btn a {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: white;
+  color: brown;
+  padding: 0.4rem 0.8rem;
+  border-radius: 5px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+/* Hover effect */
+#checkout-btn a:hover {
+  background: brown; /* nav button becomes orange */
+  color: white;         /* text becomes white */
+}
+
+/* Change cart icon fill on hover */
+#checkout-btn a:hover svg {
+  fill: white;           /* cart turns white on hover */
+}
+.checkout-btn {
+  width: 100%;
+  padding: 10px;
+  background: #28a745;
+  color: white;
+  border: none;
+  margin-top: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.checkout-btn:hover {
+  background: #218838;
+}
+
+/* Container for buttons */
+.cart-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+/* Base style for both buttons to ensure they are the same height */
+.clear-btn, .checkout-btn {
+  flex: 1; /* Makes them equal width */
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* Red for Checkout */
+.checkout-btn {
+  background: #ff4d4d;
+  color: white;
+}
+
+/* Gray/Muted for Clear */
+.clear-btn {
+  background: #ddd;
+  color: #333;
+}
+
+.clear-btn:hover {
+  background: #bbb;
+}
+
+
+
+
+.qty-btn {
+  cursor: pointer;
+  padding: 2px 6px;
+  background: #ddd;
+  border-radius: 3px;
+  margin-left: 5px;
+}
+
+
+/* Modal Overlay - Darkens the background */
+.modal-overlay {
+  display: none; /* Hidden by default */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 2000; /* Higher than the cart */
+  justify-content: center;
+  align-items: center;
+}
+
+/* The Box in the Middle */
+.modal-content {
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  text-align: center;
+  width: 90%;
+  max-width: 350px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.modal-btns {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.modal-btns button {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.cancel-btn { background: #eee; color: #333; }
+.confirm-btn { background: #ff4d4d; color: white; }
+
+.cancel-btn:hover { background: #ddd; }
+.confirm-btn:hover { background: #e63939; }
+
+
+/* Animation for the card "pop" */
+@keyframes card-pop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.card-active {
+  animation: card-pop 0.3s ease-out;
+  border: 1px solid #ff4d4d; /* Brief highlight */
+}
+
+/* Success state for the button */
+.add-btn.success {
+  background-color: #28a745 !important; /* Green */
+  transition: 0.2s;
+}
+
+/* FLYING IMAGE */
+.flying-img {
+  position: fixed;
+  width: 60px;
+  height: 60px;
+  pointer-events: none;
+  z-index: 9999;
+  transition: all 0.7s ease;
+  border-radius: 50%;
+}
+
+
+
+
+.menu {
+  flex: 3; /* Takes up most of the space */
+}
+
+.cart {
+  /* Fix the width here */
+  width: 300px; 
+  flex: 0 0 300px; /* Prevents it from growing or shrinking */
+  
+  /* Sticky behavior */
+  position: sticky;
+  top: 20px;
+  
+  /* Internal Scrolling logic */
+  max-height: 80vh; 
+  display: flex;
+  flex-direction: column;
+  
+  /* Visuals */
+  border: 1px solid #ddd;
+  padding: 15px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+#cart-items {
+  flex: 1; 
+  overflow-y: auto; /* The separate scroll for foods */
+  margin: 10px 0;
+  padding-right: 8px;
+}
+
+/* Ensure buttons stay at the bottom */
+.cart h3, 
+.cart-actions {
+  flex-shrink: 0;
+  border-top: 1px solid #eee;
+  padding-top: 10px;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  position: relative; /* Necessary for the background layer */
+  min-height: 100vh;
+  background-color: #f0f2f5; /* fallback color */
+}
+
+/* The Background Layer */
+body::before {
+  content: "";
+  position: fixed; /* Stays put while you scroll */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  
+  /* Replace with your image path */
+  background-image: url('images/hero.png'); 
+  background-size: cover;
+  background-position: center;
+  
+  /* CONTROL TRANSPARENCY HERE */
+  opacity: 0.2; /* 0.1 is subtle, 0.5 is strong */
+  
+  z-index: -1; /* Puts it behind everything */
+  pointer-events: none; /* Ensures you can still click buttons through it */
+}
+
+/* Ensure your containers have a slight background to stay readable */
+.main-container {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  align-items: flex-start;
+  z-index: 1; 
+}
+
+/* Make sure the cart stands out against the background */
+.cart {
+  background: rgba(255, 255, 255, 0.95); /* Slight transparency for the cart box itself */
+  backdrop-filter: blur(5px); /* Optional: glass effect */
+  border: 1px solid rgba(0,0,0,0.1);
+}
+
+
+
+
+
+.menu-card {
+  background: white;
+  border-radius: 15px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  height: 300px;
+}
+
+.menu-card img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.menu-card-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+}
+
+.menu-page .menu-card h3 {
+  font-size: 16px;
+
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.menu-card .add-btn {
+  margin-top: 10px;
+}
+
+
+.add-btn.success {
+  background-color: #28a745 !important;
+}
+
+
+/* FIX CART ITEM LAYOUT */
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+/* LEFT SIDE TEXT */
+.cart-name {
+  flex: 1;
+  font-size: 14px;
+  word-break: break-word;
+}
+
+/* RIGHT SIDE BUTTONS */
+.cart-controls {
+  display: flex;
+  gap: 5px;
+  flex-shrink: 0; /* prevents squishing */
+}
+
+/* BUTTON STYLE (override old .qty-btn look) */
+.cart-controls button {
+  width: 26px;
+  height: 26px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  color: white;
+}
+
+/* DECREASE (RED) */
+.cart-controls button:first-child {
+  background: #ff4d4d;
+}
+
+.cart-controls button:first-child:hover {
+  background: #e63939;
+}
+
+/* INCREASE (GREEN) */
+.cart-controls button:last-child {
+  background: #28a745;
+}
+
+.cart-controls button:last-child:hover {
+  background: #218838;
+}
+
+
+/* DEFAULT STATE (for smoothness) */
+.cart-item {
+  transition: all 0.3s ease;
+} 

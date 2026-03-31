@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Karindery Express Foods</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* ================================================================
+           1. CORE BASE STYLES
+           ================================================================
+        */
+        body {
+            font-family: 'Geist', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #1f1c2c, #928dab);
+            color: #fff;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* ================================================================
+           2. FIXED HEADER (MATCHING CHECKOUT)
+           ================================================================
+        */
+        header {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 2000;
+            width: 100%;
+        }
+
+        .left-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: auto;
+            padding: 15px 20px;
+        }
+
+        .left-nav h1 {
+            font-size: 24px;
+            font-weight: 600;
+            margin: 0;
+            letter-spacing: -0.5px;
+            color: #fff;
+        }
+
+        .left-nav ul {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .left-nav a {
+            color: #fff !important;
+            text-decoration: none;
+            opacity: 0.8;
+            font-size: 15px;
+            transition: 0.3s ease;
+        }
+
+        .left-nav a:hover, .nav-active {
+            opacity: 1 !important;
+            color: #fff !important;
+        }
+
+        .nav-active {
+            border-bottom: 2px solid #ff4d4d;
+        }
+
+        /* ================================================================
+           3. CONTACT CARD (MATCHING CHECKOUT GLASS DESIGN)
+           ================================================================
+        */
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .contact-card {
+            width: 100%;
+            max-width: 550px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 40px;
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .contact-card h2 {
+            margin-top: 0;
+            font-size: 28px;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .contact-card p {
+            text-align: center;
+            opacity: 0.7;
+            margin-bottom: 30px;
+            font-size: 15px;
+        }
+
+        /* ================================================================
+           4. FORM INPUTS (MATCHING CHECKOUT)
+           ================================================================
+        */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .contact-card input, 
+        .contact-card textarea {
+            width: 100%;
+            padding: 14px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: #fff;
+            font-family: inherit;
+            box-sizing: border-box;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .contact-card input:focus, 
+        .contact-card textarea:focus {
+            border-color: #ff4d4d;
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .error-msg {
+            color: #ff4d4d;
+            font-size: 12px;
+            margin-top: 5px;
+            display: block;
+            min-height: 18px;
+        }
+
+        /* ================================================================
+           5. BUTTON (MATCHING CHECKOUT GRADIENT)
+           ================================================================
+        */
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            border-radius: 12px;
+            border: none;
+            background: linear-gradient(135deg, #ff512f, #dd2476);
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 5px 15px rgba(221, 36, 118, 0.4);
+        }
+
+        #successMsg {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* ================================================================
+           6. MOBILE RESPONSIVENESS
+           ================================================================
+        */
+        @media (max-width: 768px) {
+            .left-nav {
+                flex-direction: column;
+                gap: 15px;
+                padding: 15px 10px;
+            }
+
+            .left-nav ul {
+                gap: 15px;
+            }
+
+            .container {
+                margin: 20px auto;
+            }
+
+            .contact-card {
+                padding: 25px;
+            }
+            
+            .contact-card h2 {
+                font-size: 24px;
+            }
+        }
+
+        footer {
+            margin-top: 50px;
+            text-align: center;
+            padding: 20px;
+            opacity: 0.5;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="left-nav">
+            <h1>Fucking Logo</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="menu.html">Menu</a></li>
+                    <li><a href="aboutus.html">About Us</a></li>
+                    <li><a href="contact.html" class="nav-active">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="contact-card">
+            <div id="formContent">
+                <h2>Get in Touch</h2>
+                <p>Have questions or feedback? Send us a message!</p>
+
+                <form id="contactForm" novalidate>
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" placeholder="Your full name">
+                        <span class="error-msg" id="nameError"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" placeholder="example@mail.com">
+                        <span class="error-msg" id="emailError"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Your Message</label>
+                        <textarea id="message" rows="5" placeholder="How can we help you?"></textarea>
+                        <span class="error-msg" id="messageError"></span>
+                    </div>
+
+                    <button type="submit" class="submit-btn">SEND MESSAGE</button>
+                </form>
+            </div>
+
+            <div id="successMsg">
+                <h2 style="color: #28a745;">✅ Message Sent!</h2>
+                <p>Thank you for reaching out. We will get back to you shortly.</p>
+                <button onclick="location.reload()" class="submit-btn" style="background: rgba(255,255,255,0.1); margin-top: 20px;">Send Another</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Karindery Express Foods. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            let isValid = true;
+            const name = document.getElementById('name');
+            const email = document.getElementById('email');
+            const message = document.getElementById('message');
+
+            // Name Validation
+            if (name.value.trim().length < 2) {
+                document.getElementById('nameError').textContent = "Please enter your name";
+                isValid = false;
+            } else { document.getElementById('nameError').textContent = ""; }
+
+            // Email Validation
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email.value)) {
+                document.getElementById('emailError').textContent = "Please enter a valid email";
+                isValid = false;
+            } else { document.getElementById('emailError').textContent = ""; }
+
+            // Message Validation
+            if (message.value.trim().length < 10) {
+                document.getElementById('messageError').textContent = "Message is too short (min 10 chars)";
+                isValid = false;
+            } else { document.getElementById('messageError').textContent = ""; }
+
+            if (isValid) {
+                document.getElementById('formContent').style.display = 'none';
+                document.getElementById('successMsg').style.display = 'block';
+            }
+        });
+    </script>
+
+</body>
+</html>

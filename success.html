@@ -1,0 +1,315 @@
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Order Success - Karindery Express Foods</title>
+      
+      <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&display=swap" rel="stylesheet">
+      
+      <link rel="stylesheet" href="style.css">
+
+      <style>
+          /* ================================================================
+            1. CORE BASE STYLES
+            ================================================================
+          */
+          body {
+              font-family: 'Geist', sans-serif;
+              margin: 0;
+              padding: 0;
+              background: linear-gradient(135deg, #1f1c2c, #928dab);
+              color: #fff;
+              min-height: 100vh;
+              line-height: 1.6;
+          }
+
+          /* ================================================================
+            2. FIXED HEADER (MATCHING CONTACT/CHECKOUT)
+            ================================================================
+          */
+          header {
+              background: rgba(255, 255, 255, 0.05);
+              backdrop-filter: blur(10px);
+              -webkit-backdrop-filter: blur(10px);
+              border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+              position: sticky;
+              top: 0;
+              z-index: 2000;
+              width: 100%;
+          }
+
+          .left-nav {
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              max-width: 1200px;
+              margin: auto;
+              padding: 15px 20px;
+          }
+
+          .left-nav h1 {
+              font-size: 24px;
+              font-weight: 600;
+              margin: 0;
+              letter-spacing: -0.5px;
+              color: #fff;
+          }
+
+          .left-nav ul {
+              display: flex;
+              gap: 25px;
+              list-style: none;
+              margin: 0;
+              padding: 0;
+          }
+
+          .left-nav a {
+              color: #fff !important;
+              text-decoration: none;
+              opacity: 0.8;
+              font-size: 15px;
+              transition: 0.3s ease;
+          }
+
+          .left-nav a:hover {
+              opacity: 1 !important;
+          }
+
+          /* ================================================================
+            3. SUCCESS CARD (MATCHING CONTACT CARD DESIGN)
+            ================================================================
+          */
+          .container {
+              max-width: 1200px;
+              margin: 40px auto;
+              padding: 0 20px;
+              display: flex;
+              justify-content: center;
+          }
+
+          .success-card {
+              width: 100%;
+              max-width: 550px;
+              background: rgba(255, 255, 255, 0.08);
+              border-radius: 20px;
+              padding: 40px;
+              backdrop-filter: blur(15px);
+              -webkit-backdrop-filter: blur(15px);
+              box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+              border: 1px solid rgba(255, 255, 255, 0.1);
+              transition: transform 0.3s ease;
+              text-align: center;
+          }
+
+          .success-card:hover {
+              transform: translateY(-5px);
+              background: rgba(255, 255, 255, 0.1);
+          }
+
+          .success-card h1 {
+              margin-top: 0;
+              font-size: 32px;
+              color: #28a745;
+              margin-bottom: 10px;
+          }
+
+          .success-card p.thank-you {
+              opacity: 0.8;
+              margin-bottom: 30px;
+              font-size: 15px;
+          }
+
+          /* ================================================================
+            4. RECEIPT STYLING
+            ================================================================
+          */
+          .order-details {
+              text-align: left;
+              background: rgba(0, 0, 0, 0.2);
+              padding: 25px;
+              border-radius: 15px;
+              border: 1px solid rgba(255, 255, 255, 0.05);
+          }
+
+          .order-details h3 {
+              margin: 20px 0 8px 0;
+              font-size: 13px;
+              text-transform: uppercase;
+              letter-spacing: 1px;
+              color: rgba(255, 255, 255, 0.5);
+          }
+
+          .order-details h3:first-child { margin-top: 0; }
+
+          .order-details p {
+              margin: 4px 0;
+              font-size: 15px;
+          }
+
+          .receipt-divider {
+              border-top: 1px dashed rgba(255, 255, 255, 0.2);
+              margin: 15px 0;
+          }
+
+          .order-item {
+              display: flex;
+              justify-content: space-between;
+              margin: 10px 0;
+              font-size: 15px;
+          }
+
+          .total-display {
+              font-weight: 600;
+              text-align: right;
+              margin-top: 15px;
+              font-size: 24px;
+              color: #fff;
+          }
+
+          /* ================================================================
+            5. BUTTON (MATCHING CHECKOUT GRADIENT)
+            ================================================================
+          */
+          .buy-again-btn {
+              width: 100%;
+              padding: 16px;
+              margin-top: 30px;
+              border-radius: 12px;
+              border: none;
+              background: linear-gradient(135deg, #ff512f, #dd2476);
+              color: white;
+              font-size: 16px;
+              font-weight: bold;
+              letter-spacing: 1px;
+              cursor: pointer;
+              transition: 0.3s;
+          }
+
+          .buy-again-btn:hover {
+              transform: scale(1.02);
+              box-shadow: 0 5px 15px rgba(221, 36, 118, 0.4);
+          }
+
+          /* ================================================================
+            6. MOBILE RESPONSIVENESS
+            ================================================================
+          */
+          @media (max-width: 768px) {
+              .left-nav {
+                  flex-direction: column;
+                  gap: 15px;
+                  padding: 15px 10px;
+              }
+
+              .left-nav ul {
+                  gap: 15px;
+              }
+
+              .container {
+                  margin: 20px auto;
+              }
+
+              .success-card {
+                  padding: 25px;
+              }
+              
+              .success-card h1 {
+                  font-size: 28px;
+              }
+          }
+
+          footer {
+              margin-top: 50px;
+              text-align: center;
+              padding: 20px;
+              opacity: 0.5;
+              font-size: 12px;
+          }
+      </style>
+  </head>
+  <body>
+
+      <header>
+          <div class="left-nav">
+              <h1>Fucking Logo</h1>
+              <nav>
+                  <ul>
+                      <li><a href="index.html">Home</a></li>
+                      <li><a href="menu.html">Menu</a></li>
+                      <li><a href="aboutus.html">About Us</a></li>
+                      <li><a href="contact.html">Contact</a></li>
+                  </ul>
+              </nav>
+          </div>
+      </header>
+
+      <div class="container">
+          <div class="success-card">
+              <h1>✅ Order Placed!</h1>
+              <p class="thank-you">Thank you for choosing Karindery Express Foods. Your meal is being prepared.</p>
+
+              <div class="order-details" id="order-details">
+                  </div>
+              
+              <button class="buy-again-btn" id="buy-again-btn">BUY AGAIN</button>
+          </div>
+      </div>
+
+      <footer>
+          <p>&copy; 2026 Karindery Express Foods. All Rights Reserved.</p>
+      </footer>
+
+      <script>
+          const order = JSON.parse(localStorage.getItem("currentOrder"));
+          const detailsDiv = document.getElementById("order-details");
+          const buyAgainBtn = document.getElementById("buy-again-btn");
+
+          if(order) {
+              let itemsHTML = "";
+              let total = 0;
+
+              for(let item in order.items) {
+                  const itemData = order.items[item];
+                  const itemTotal = itemData.price * itemData.qty;
+                  total += itemTotal;
+                  itemsHTML += `<div class="order-item"><span>${item} (x${itemData.qty})</span> <span>₱${itemTotal.toLocaleString()}</span></div>`;
+              }
+
+              detailsDiv.innerHTML = `
+                  <h3>Customer Info</h3>
+                  <p><strong>${order.customer.name}</strong></p>
+                  <p>${order.customer.address}</p>
+                  <p>${order.customer.phone}</p>
+                  
+                  <div class="receipt-divider"></div>
+                  
+                  <h3>Payment</h3>
+                  <p>${order.customer.payment}</p>
+                  
+                  <div class="receipt-divider"></div>
+                  
+                  <h3>Order Summary</h3>
+                  ${itemsHTML}
+                  
+                  <div class="receipt-divider"></div>
+                  <div class="total-display">Total Paid: ₱${total.toLocaleString()}</div>
+              `;
+
+              buyAgainBtn.onclick = function() {
+                  localStorage.setItem("cart", JSON.stringify(order.items));
+                  window.location.href = "menu.html";
+              };
+
+              localStorage.removeItem("currentOrder");
+          } else {
+              detailsDiv.innerHTML = "<p style='text-align:center;'>No recent order found.</p>";
+              buyAgainBtn.innerText = "Back to Menu";
+              buyAgainBtn.onclick = function() {
+                  window.location.href = "menu.html";
+              };
+          }
+      </script>
+
+  </body>
+  </html>

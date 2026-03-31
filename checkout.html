@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Karindery Express - Checkout</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* ================================================================
+           1. CORE BASE STYLES
+           ================================================================
+        */
+        body {
+            font-family: 'Geist', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #1f1c2c, #928dab);
+            color: #fff;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* ================================================================
+           2. FIXED HEADER (MATCHING CONTACT/SUCCESS)
+           ================================================================
+        */
+        header {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: sticky;
+            top: 0;
+            width: 100%;
+            z-index: 2000;
+        }
+
+        .left-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: auto;
+            padding: 15px 20px;
+        }
+
+        .left-nav h1 {
+            font-size: 24px;
+            font-weight: 600;
+            margin: 0;
+            letter-spacing: -0.5px;
+            color: #fff;
+        }
+
+        .left-nav ul {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .left-nav a {
+            color: #fff !important;
+            text-decoration: none;
+            opacity: 0.8;
+            font-size: 15px;
+            transition: 0.3s ease;
+        }
+
+        .left-nav a:hover {
+            opacity: 1 !important;
+        }
+
+        /* ================================================================
+           3. MAIN LAYOUT GRID
+           ================================================================
+        */
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .checkout-title {
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        .checkout-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 30px;
+        }
+
+        /* ================================================================
+           4. GLASS CARD COMPONENT
+           ================================================================
+        */
+        .cart-summary, 
+        .checkout-form {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 25px;
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .cart-summary-scroll {
+            max-height: 400px;
+            overflow-y: auto;
+            padding-right: 5px;
+            margin-bottom: 15px;
+        }
+
+        /* Custom Scrollbar for the summary */
+        .cart-summary-scroll::-webkit-scrollbar { width: 5px; }
+        .cart-summary-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
+
+        /* ================================================================
+           5. ORDER ITEM STYLING
+           ================================================================
+        */
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 12px 0;
+            padding: 12px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .item-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .order-item img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .item-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+       /* ================================================================
+   UPDATED BUTTON STYLING
+   ================================================================
+*/
+.qty-btns {
+    display: flex;
+    align-items: center;
+    gap: 0; /* Removed gap for a "joined" button look */
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.qty-btns button {
+    background: rgba(255, 255, 255, 0.1) !important; /* Overriding your red button style for qty only */
+    border: none;
+    color: white;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 500;
+    transition: 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.qty-btns button:hover {
+    background: rgba(255, 255, 255, 0.2) !important;
+}
+
+.qty-btns span {
+    width: 30px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+        .item-controls button {
+            background: #ff4d4d;
+            border: none;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* ================================================================
+           6. FORM INPUTS (MATCHING CONTACT/SUCCESS)
+           ================================================================
+        */
+        .checkout-form h2 { font-size: 20px; margin-bottom: 15px; }
+
+        .checkout-form input,
+        .checkout-form select {
+            width: 100%;
+            padding: 14px;
+            margin: 10px 0;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            box-sizing: border-box;
+            outline: none;
+            font-family: inherit;
+        }
+
+        .checkout-form select { background: #fff; color: #000; }
+
+        .checkout-form button[type="submit"] {
+            width: 100%;
+            padding: 16px;
+            border-radius: 12px;
+            border: none;
+            background: linear-gradient(135deg, #ff512f, #dd2476);
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 15px;
+        }
+
+        .checkout-form button[type="submit"]:hover {
+            transform: scale(1.02);
+            box-shadow: 0 5px 15px rgba(221, 36, 118, 0.4);
+        }
+
+        /* ================================================================
+           7. MOBILE RESPONSIVENESS
+           ================================================================
+        */
+        @media (max-width: 768px) {
+            .left-nav {
+                flex-direction: column;
+                gap: 15px;
+                padding: 15px 10px;
+            }
+
+            .left-nav ul { gap: 15px; }
+
+            .checkout-grid { grid-template-columns: 1fr; }
+
+            .order-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .item-controls {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .checkout-title { font-size: 26px; }
+        }
+
+        .total {
+            text-align: right;
+            margin-top: 20px;
+            padding-top: 15px;
+            font-size: 22px;
+            font-weight: bold;
+            border-top: 1px dashed rgba(255, 255, 255, 0.2);
+        }
+
+        .secondary-btn {
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+            color: #fff;
+            text-decoration: none;
+            opacity: 0.7;
+            font-size: 14px;
+        }
+
+        footer {
+            margin-top: 50px;
+            text-align: center;
+            padding: 20px;
+            opacity: 0.5;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="left-nav">
+            <h1>Fucking Logo</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="menu.html">Menu</a></li>
+                    <li><a href="aboutus.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <h1 class="checkout-title">🧾 Checkout</h1>
+
+        <div class="checkout-grid">
+            
+            <div class="cart-summary" id="cart-summary">
+                </div>
+
+            <div class="checkout-form-container">
+                <form class="checkout-form" id="checkout-form">
+                    <h2>Delivery Details</h2>
+                    <input type="text" id="name" placeholder="Full Name" required>
+                    <input type="text" id="address" placeholder="Delivery Address" required>
+                    <input type="tel" id="phone" placeholder="Phone Number" required>
+
+                    <h2>Payment</h2>
+                    <select id="payment" required>
+                        <option value="">Select Method</option>
+                        <option value="GCash">GCash</option>
+                        <option value="Cash on Delivery">Cash on Delivery</option>
+                        <option value="Maya">Maya</option>
+                    </select>
+
+                    <button type="submit">PLACE ORDER NOW</button>
+                    <a href="menu.html" class="secondary-btn">← Back to Menu</a>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Karindery Express Foods. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        let cart = JSON.parse(localStorage.getItem("cart")) || {};
+
+       // UPDATED RENDER CART FUNCTION
+function renderCart() {
+    const summaryDiv = document.getElementById("cart-summary");
+    summaryDiv.innerHTML = "<h2>Your Order</h2>";
+    
+    const scrollContainer = document.createElement("div");
+    scrollContainer.className = "cart-summary-scroll";
+    
+    let total = 0;
+
+    if (Object.keys(cart).length === 0) {
+        summaryDiv.innerHTML += `<p style="text-align:center; padding: 20px;">Your cart is empty.</p>`;
+        return;
+    }
+
+    for (let item in cart) {
+        const itemData = cart[item];
+        const itemTotal = itemData.price * itemData.qty;
+        total += itemTotal;
+
+        // Note: Using button type="button" to prevent form submission
+        scrollContainer.innerHTML += `
+            <div class="order-item">
+                <div class="item-info">
+                    <img src="${itemData.img || 'https://via.placeholder.com/60'}" alt="${item}">
+                    <div>
+                        <span style="font-weight: 500">${item}</span><br>
+                        <small style="opacity:0.6">₱${itemData.price}</small>
+                    </div>
+                </div>
+                <div class="item-controls">
+                    <div class="qty-btns">
+                        <button type="button" onclick="updateQty('${item}', -1)">−</button>
+                        <span>${itemData.qty}</span>
+                        <button type="button" onclick="updateQty('${item}', 1)">+</button>
+                    </div>
+                    <span style="font-weight:600; min-width: 80px; text-align: right;">₱${itemTotal.toLocaleString()}</span>
+                </div>
+            </div>
+        `;
+    }
+
+    summaryDiv.appendChild(scrollContainer);
+    
+    // The Total Due section remains exactly as per your design
+    const totalDiv = document.createElement("div");
+    totalDiv.className = "total";
+    totalDiv.innerHTML = `
+        <span style="font-size:12px; opacity:0.6; text-transform: uppercase;">Total Due:</span><br>
+        ₱${total.toLocaleString()}
+    `;
+    summaryDiv.appendChild(totalDiv);
+}
+
+        function updateQty(item, change) {
+            if (!cart[item]) return;
+            cart[item].qty += change;
+            if (cart[item].qty <= 0) delete cart[item];
+            localStorage.setItem("cart", JSON.stringify(cart));
+            renderCart();
+        }
+
+        document.getElementById("checkout-form").addEventListener("submit", function(e) {
+            e.preventDefault();
+            if (Object.keys(cart).length === 0) {
+                alert("Your cart is empty!");
+                return;
+            }
+
+            const orderPayload = {
+                orderID: 'DF-' + Math.floor(Math.random() * 1000000),
+                customer: {
+                    name: document.getElementById("name").value,
+                    address: document.getElementById("address").value,
+                    phone: document.getElementById("phone").value,
+                    payment: document.getElementById("payment").value
+                },
+                items: cart,
+                timestamp: new Date().toISOString()
+            };
+
+            localStorage.setItem("currentOrder", JSON.stringify(orderPayload));
+            localStorage.removeItem("cart");
+            window.location.href = "success.html";
+        });
+
+        document.addEventListener("DOMContentLoaded", renderCart);
+    </script>
+</body>
+</html>
