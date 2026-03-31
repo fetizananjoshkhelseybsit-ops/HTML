@@ -9,11 +9,6 @@
     <link rel="stylesheet" href="style.css">
 
     <style>
-
-
-
-
-
         /* ================================================================
            1. CORE BASE STYLES
            ================================================================ */
@@ -22,6 +17,7 @@
             margin: 0;
             padding: 0;
             background: linear-gradient(135deg, #1f1c2c, #928dab);
+            background-attachment: fixed;
             color: #fff;
             min-height: 100vh;
             line-height: 1.7;
@@ -30,7 +26,7 @@
         }
 
         /* ================================================================
-           2. GLASS HEADER
+           2. FIXED HEADER
            ================================================================ */
         header {
             background: rgba(255, 255, 255, 0.05);
@@ -41,6 +37,7 @@
             top: 0;
             z-index: 2000;
             width: 100%;
+            padding: 10px 0;
         }
 
         .left-nav {
@@ -49,16 +46,18 @@
             justify-content: space-between;
             max-width: 1200px;
             margin: auto;
-            padding: 15px 20px;
+            padding: 0 20px;
         }
 
-        .left-nav h1 {
-            font-size: 24px;
-            font-weight: 600;
-            margin: 0;
-            color: #fff;
-            letter-spacing: -0.5px;
+        .nav-logo {
+            height: 80px;
+            width: auto;
+            display: block;
+            transition: transform 0.3s ease;
+            filter: drop-shadow(0px 4px 8px rgba(0,0,0,0.3));
         }
+
+        .nav-logo:hover { transform: scale(1.05); }
 
         .left-nav ul {
             display: flex;
@@ -75,51 +74,16 @@
             font-size: 15px;
             transition: 0.3s ease;
         }
-     /* Update this section */
-.left-nav a:hover, .nav-active { 
-    opacity: 1 !important; 
-}
 
-/* Updated Logo Style */
-.nav-logo {
-    height: 80px;    /* Increased from 50px to 80px */
-    width: auto;     /* Maintains aspect ratio */
-    display: block;
-    transition: transform 0.3s ease;
-    filter: drop-shadow(0px 4px 8px rgba(0,0,0,0.3)); /* Adds depth */
-}
+        .left-nav a:hover, .nav-active { 
+            opacity: 1 !important; 
+        }
 
-.nav-logo:hover {
-    transform: scale(1.05);
-}
+        .nav-active {
+            border-bottom: 2px solid #ff4d4d;
+            padding-bottom: 5px;
+        }
 
-/* Adjust the header to fit the bigger logo */
-header {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    position: sticky;
-    top: 0;
-    z-index: 2000;
-    width: 100%;
-    padding: 10px 0; /* Added padding to give the bigger logo room to breathe */
-}
-
-.left-nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    max-width: 1200px;
-    margin: auto;
-    padding: 0 20px; /* Removed vertical padding here since header handles it */
-}
-
-/* Add this new block */
-.nav-active {
-    border-bottom: 2px solid #ff4d4d;
-    padding-bottom: 5px; /* Creates space between text and line */
-}
         /* ================================================================
            3. CATEGORIES
            ================================================================ */
@@ -132,11 +96,6 @@ header {
             overflow-x: auto;
             white-space: nowrap;
         }
-        
-
-   
-
-
 
         .categories::-webkit-scrollbar { display: none; }
 
@@ -159,7 +118,7 @@ header {
         }
 
         /* ================================================================
-           4. MAIN CONTENT & CARDS
+           4. MENU CARDS (STRICT LAYOUT)
            ================================================================ */
         .main-container {
             max-width: 1200px;
@@ -185,12 +144,15 @@ header {
             transition: transform 0.3s ease;
             display: flex;
             flex-direction: column;
-            height: 340px;
+            height: 400px; /* Locked height */
+            box-sizing: border-box;
+            overflow: hidden; /* Safety net */
         }
 
         .menu-card:hover {
             transform: translateY(-5px);
             background: rgba(255, 255, 255, 0.12);
+            border-color: #ff4d4d;
         }
 
         .menu-card img {
@@ -199,28 +161,48 @@ header {
             object-fit: cover;
             border-radius: 12px;
             margin-bottom: 12px;
+            flex-shrink: 0;
         }
 
         .menu-card-content {
-            flex: 1;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            justify-content: flex-start;
+            flex-grow: 1; 
             text-align: center;
         }
 
-        .menu-card h3 { margin: 0; font-size: 17px; font-weight: 600; min-height: 44px; }
-        .menu-card p { margin: 5px 0; color: #ff512f; font-weight: 600; font-size: 18px; }
+        .menu-card h3 { 
+            margin: 0 0 5px 0; 
+            font-size: 17px; 
+            font-weight: 600;
+            height: 50px; /* Fixed height for 2-3 lines of text */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1.2;
+            overflow: hidden;
+        }
+
+        .menu-card p { 
+            margin: 5px 0; 
+            color: #ff512f; 
+            font-weight: 600;
+            font-size: 18px;
+        }
 
         .add-btn {
             background: linear-gradient(135deg, #ff512f, #dd2476);
             color: white;
             border: none;
-            padding: 12px;
+            padding: 14px;
             border-radius: 12px;
             font-weight: bold;
             cursor: pointer;
             transition: 0.3s;
+            margin-top: auto; /* Pushes button to very bottom */
+            width: 100%;
+            flex-shrink: 0;
         }
 
         /* ================================================================
@@ -233,30 +215,26 @@ header {
             padding: 25px;
             border: 1px solid rgba(255, 255, 255, 0.1);
             position: sticky;
-            top: 100px;
+            top: 120px;
             height: fit-content;
-        }
-
-        .cart-item {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 12px;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 10px;
-            border-radius: 8px;
-            font-size: 14px;
-        }
-
-        .total-display {
-            font-size: 28px;
-            font-weight: 600;
-            margin-top: 10px;
-            color: #fff;
+            min-width: 300px;
+            backdrop-filter: blur(15px);
         }
 
         /* ================================================================
-           6. ANIMATIONS & MOBILE
+           6. MOBILE
            ================================================================ */
+        @media (max-width: 768px) {
+            .left-nav { flex-direction: column; gap: 15px; padding: 15px 10px; }
+            .left-nav ul { gap: 15px; width: 100%; justify-content: center; }
+            .main-container { flex-direction: column; }
+            .cart { position: static; width: auto; min-width: 0; }
+            .menu { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+            .menu-card { height: 380px; padding: 10px; }
+            .menu-card img { height: 120px; }
+            .menu-card h3 { font-size: 15px; height: 45px; }
+        }
+
         .flying-img {
             position: fixed;
             transition: all 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -265,21 +243,6 @@ header {
             border-radius: 50%;
             border: 2px solid #dd2476;
         }
-
-        @media (max-width: 900px) {
-            .main-container { flex-direction: column; }
-            .cart { position: static; width: auto; }
-            .left-nav ul { display: none; }
-        }
-
-        @media (max-width: 600px) {
-            .menu { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-            .menu-card { height: 280px; padding: 10px; }
-            .menu-card img { height: 110px; }
-            .menu-card h3 { font-size: 14px; min-height: 36px; }
-        }
-
-    
     </style>
 </head>
 <body>
@@ -287,10 +250,10 @@ header {
     <header>
         <div class="left-nav">
             <div class="logo-container">
-    <a href="index.html">
-        <img src="images/LOGO1.jpg" alt="Karinderya Express Logo" class="nav-logo">
-    </a>
-</div>
+                <a href="index.html">
+                    <img src="images/LOGO1.jpg" alt="Karinderya Express Logo" class="nav-logo">
+                </a>
+            </div>
             <nav>
                 <ul>
                     <li><a href="index.html">Home</a></li>
@@ -303,11 +266,11 @@ header {
     </header>
 
     <div class="categories">
-        <button onclick="filterMenu('all')" class="active">All</button>
-        <button onclick="filterMenu('non-soup')">Non-Soup</button>
-        <button onclick="filterMenu('soup')">Soup</button>
-        <button onclick="filterMenu('fried')">Fried</button>
-        <button onclick="filterMenu('drinks')">Drinks</button>
+        <button onclick="filterMenu('all', event)" class="active">All</button>
+        <button onclick="filterMenu('non-soup', event)">Non-Soup</button>
+        <button onclick="filterMenu('soup', event)">Soup</button>
+        <button onclick="filterMenu('fried', event)">Fried</button>
+        <button onclick="filterMenu('drinks', event)">Drinks</button>
     </div>
 
     <div class="main-container">
@@ -368,28 +331,28 @@ header {
                 if (filter === "all" || food.category === filter) {
                     menu.innerHTML += `
                         <div class="menu-card">
-                            <img src="${food.img}" alt="${food.name}">
+                            <img src="${food.img}" alt="${food.name}" onerror="this.src='https://via.placeholder.com/150'">
                             <div class="menu-card-content">
                                 <h3>${food.name}</h3>
                                 <p>₱${food.price}</p>
-                                <button class="add-btn" onclick="addToCart('${food.name}', ${food.price}, '${food.img}')">ADD TO CART</button>
+                                <button class="add-btn" onclick="addToCart('${food.name}', ${food.price}, '${food.img}', event)">ADD TO CART</button>
                             </div>
                         </div>`;
                 }
             });
         }
 
-        function filterMenu(category) {
+        function filterMenu(category, event) {
             document.querySelectorAll(".categories button").forEach(btn => btn.classList.remove("active"));
             event.target.classList.add("active");
             displayMenu(category);
         }
 
-        function addToCart(name, price, img) {
+        function addToCart(name, price, img, e) {
             if (!cart[name]) cart[name] = { price: price, qty: 1, img: img };
             else cart[name].qty++;
             updateCart();
-            animateFlyingItem(event);
+            animateFlyingItem(e);
         }
 
         function animateFlyingItem(e) {
@@ -402,12 +365,14 @@ header {
             document.body.appendChild(flyingImg);
             const imgRect = itemImg.getBoundingClientRect();
             const cartRect = cartBox.getBoundingClientRect();
+            
             flyingImg.style.left = imgRect.left + "px";
             flyingImg.style.top = imgRect.top + "px";
             flyingImg.style.width = imgRect.width + "px";
+
             setTimeout(() => {
-                flyingImg.style.left = cartRect.left + "px";
-                flyingImg.style.top = cartRect.top + "px";
+                flyingImg.style.left = (cartRect.left + 20) + "px";
+                flyingImg.style.top = (cartRect.top + 20) + "px";
                 flyingImg.style.width = "40px";
                 flyingImg.style.height = "40px";
                 flyingImg.style.opacity = "0";
@@ -425,8 +390,8 @@ header {
                     <div class="cart-item">
                         <span>${item} (x${cart[item].qty})</span>
                         <div style="display:flex; gap:5px;">
-                            <button onclick="changeQty('${item}', -1)" style="padding:0 5px; cursor:pointer;">-</button>
-                            <button onclick="changeQty('${item}', 1)" style="padding:0 5px; cursor:pointer;">+</button>
+                            <button onclick="changeQty('${item}', -1)" style="padding:2px 8px; cursor:pointer;">-</button>
+                            <button onclick="changeQty('${item}', 1)" style="padding:2px 8px; cursor:pointer;">+</button>
                         </div>
                     </div>`;
             }
