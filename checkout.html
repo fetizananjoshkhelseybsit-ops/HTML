@@ -3,31 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menu - Karinderya Express Foods</title>
+    <title>Karinderya Express - Checkout</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="style.css">
 
     <style>
         /* ================================================================
            1. CORE BASE STYLES
-           ================================================================ */
+           ================================================================
+        */
         body {
             font-family: 'Geist', sans-serif;
             margin: 0;
             padding: 0;
             background: linear-gradient(135deg, #1f1c2c, #928dab);
-            background-attachment: fixed;
             color: #fff;
             min-height: 100vh;
-            line-height: 1.7;
-            font-size: 18px;
-            overflow-x: hidden;
+            line-height: 1.6;
         }
 
         /* ================================================================
-           2. FIXED HEADER
-           ================================================================ */
+           2. FIXED HEADER (MATCHING CONTACT/SUCCESS)
+           ================================================================
+        */
         header {
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
@@ -35,9 +35,8 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             position: sticky;
             top: 0;
-            z-index: 2000;
             width: 100%;
-            padding: 10px 0;
+            z-index: 2000;
         }
 
         .left-nav {
@@ -46,18 +45,16 @@
             justify-content: space-between;
             max-width: 1200px;
             margin: auto;
-            padding: 0 20px;
+            padding: 15px 20px;
         }
 
-        .nav-logo {
-            height: 80px;
-            width: auto;
-            display: block;
-            transition: transform 0.3s ease;
-            filter: drop-shadow(0px 4px 8px rgba(0,0,0,0.3));
+        .left-nav h1 {
+            font-size: 24px;
+            font-weight: 600;
+            margin: 0;
+            letter-spacing: -0.5px;
+            color: #fff;
         }
-
-        .nav-logo:hover { transform: scale(1.05); }
 
         .left-nav ul {
             display: flex;
@@ -75,222 +72,280 @@
             transition: 0.3s ease;
         }
 
-        .left-nav a:hover, .nav-active { 
-            opacity: 1 !important; 
-        }
-
-        .nav-active {
-            border-bottom: 2px solid #ff4d4d;
-            padding-bottom: 5px;
+        .left-nav a:hover {
+            opacity: 1 !important;
         }
 
         /* ================================================================
-           3. CATEGORIES
-           ================================================================ */
-        .categories {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.2);
-            overflow-x: auto;
-            white-space: nowrap;
-        }
-
-        .categories::-webkit-scrollbar { display: none; }
-
-        .categories button {
-            padding: 10px 22px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            cursor: pointer;
-            background: rgba(255, 255, 255, 0.05);
-            color: #fff;
-            border-radius: 30px;
-            font-family: 'Geist';
-            font-weight: 500;
-            transition: 0.3s;
-        }
-
-        .categories button.active {
-            background: linear-gradient(135deg, #ff512f, #dd2476);
-            border: none;
-            box-shadow: 0 4px 15px rgba(221, 36, 118, 0.3);
-        }
-
-        /* ================================================================
-           4. MENU CARDS
-           ================================================================ */
-        .main-container {
+           3. MAIN LAYOUT GRID
+           ================================================================
+        */
+        .container {
             max-width: 1200px;
-            margin: 20px auto;
-            display: flex;
-            gap: 30px;
-            padding: 0 20px 50px 20px;
+            margin: 40px auto;
+            padding: 0 20px;
         }
 
-        .menu {
-            flex: 3;
+        .checkout-title {
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        .checkout-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 20px;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 30px;
         }
 
-        .menu-card {
+        /* ================================================================
+           4. GLASS CARD COMPONENT
+           ================================================================
+        */
+        .cart-summary, 
+        .checkout-form {
             background: rgba(255, 255, 255, 0.08);
             border-radius: 20px;
-            padding: 15px;
-            backdrop-filter: blur(10px);
+            padding: 25px;
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: transform 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            height: 400px;
-            box-sizing: border-box;
-            overflow: hidden;
         }
 
-        .menu-card:hover {
-            transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.12);
-            border-color: #ff4d4d;
+        .cart-summary-scroll {
+            max-height: 400px;
+            overflow-y: auto;
+            padding-right: 5px;
+            margin-bottom: 15px;
         }
 
-        .menu-card img {
-            width: 100%;
-            height: 150px;
-            object-fit: cover;
-            border-radius: 12px;
-            margin-bottom: 12px;
-            flex-shrink: 0;
-        }
-
-        .menu-card-content {
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            flex-grow: 1; 
-            text-align: center;
-        }
-
-        .menu-card h3 { 
-            margin: 0 0 5px 0; 
-            font-size: 17px; 
-            font-weight: 600;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            line-height: 1.2;
-            overflow: hidden;
-        }
-
-        .menu-card p { 
-            margin: 5px 0; 
-            color: #ff512f; 
-            font-weight: 600;
-            font-size: 18px;
-        }
-
-        .add-btn {
-            background: linear-gradient(135deg, #ff512f, #dd2476);
-            color: white;
-            border: none;
-            padding: 14px;
-            border-radius: 12px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
-            margin-top: auto;
-            width: 100%;
-            flex-shrink: 0;
-        }
+        /* Custom Scrollbar for the summary */
+        .cart-summary-scroll::-webkit-scrollbar { width: 5px; }
+        .cart-summary-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
 
         /* ================================================================
-           5. CART SIDEBAR
-           ================================================================ */
-        .cart {
-            flex: 1;
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 20px;
-            padding: 25px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            position: sticky;
-            top: 120px;
-            height: fit-content;
-            min-width: 300px;
-            backdrop-filter: blur(15px);
-        }
-
-        .total-display {
-            font-size: 24px;
-            font-weight: bold;
-            color: #fff;
-        }
-
-        .cart-item {
+           5. ORDER ITEM STYLING
+           ================================================================
+        */
+        .order-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 10px;
+            margin: 12px 0;
+            padding: 12px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .item-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .order-item img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .item-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+       /* ================================================================
+   UPDATED BUTTON STYLING
+   ================================================================
+*/
+.qty-btns {
+    display: flex;
+    align-items: center;
+    gap: 0; /* Removed gap for a "joined" button look */
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.qty-btns button {
+    background: rgba(255, 255, 255, 0.1) !important; /* Overriding your red button style for qty only */
+    border: none;
+    color: white;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 500;
+    transition: 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.qty-btns button:hover {
+    background: rgba(255, 255, 255, 0.2) !important;
+}
+
+.qty-btns span {
+    width: 30px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+        .item-controls button {
+            background: #ff4d4d;
+            border: none;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* ================================================================
+           6. FORM INPUTS (MATCHING CONTACT/SUCCESS)
+           ================================================================
+        */
+        .checkout-form h2 { font-size: 20px; margin-bottom: 15px; }
+
+        .checkout-form input,
+        .checkout-form select {
+            width: 100%;
+            padding: 14px;
+            margin: 10px 0;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            box-sizing: border-box;
+            outline: none;
+            font-family: inherit;
+        }
+
+        .checkout-form select { background: #fff; color: #000; }
+
+        .checkout-form button[type="submit"] {
+            width: 100%;
+            padding: 16px;
+            border-radius: 12px;
+            border: none;
+            background: linear-gradient(135deg, #ff512f, #dd2476);
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 15px;
+        }
+
+        .checkout-form button[type="submit"]:hover {
+            transform: scale(1.02);
+            box-shadow: 0 5px 15px rgba(221, 36, 118, 0.4);
+        }
+
+        /* ================================================================
+           7. MOBILE RESPONSIVENESS
+           ================================================================
+        */
+        @media (max-width: 768px) {
+            .left-nav {
+                flex-direction: column;
+                gap: 15px;
+                padding: 15px 10px;
+            }
+
+            .left-nav ul { gap: 15px; }
+
+            .checkout-grid { grid-template-columns: 1fr; }
+
+            .order-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .item-controls {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .checkout-title { font-size: 26px; }
+        }
+
+        .total {
+            text-align: right;
+            margin-top: 20px;
+            padding-top: 15px;
+            font-size: 22px;
+            font-weight: bold;
+            border-top: 1px dashed rgba(255, 255, 255, 0.2);
+        }
+
+        .secondary-btn {
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+            color: #fff;
+            text-decoration: none;
+            opacity: 0.7;
             font-size: 14px;
         }
 
-        /* ================================================================
-           6. CUSTOM MODAL NOTIFICATION
-           ================================================================ */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            z-index: 9999;
-            align-items: center;
-            justify-content: center;
-            backdrop-filter: blur(5px);
-        }
-
-        .modal-box {
-            background: #2c2a3a;
-            padding: 30px;
-            border-radius: 20px;
+        footer {
+            margin-top: 50px;
             text-align: center;
-            border: 1px solid #ff4d4d;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            max-width: 400px;
-            width: 90%;
-            animation: modalPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            padding: 20px;
+            opacity: 0.5;
+            font-size: 12px;
         }
 
-        @keyframes modalPop {
-            from { transform: scale(0.8); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
+        /* Updated Logo Style */
+.nav-logo {
+    height: 80px;    /* Increased from 50px to 80px */
+    width: auto;     /* Maintains aspect ratio */
+    display: block;
+    transition: transform 0.3s ease;
+    filter: drop-shadow(0px 4px 8px rgba(0,0,0,0.3)); /* Adds depth */
+}
 
-        /* ================================================================
-           7. MOBILE RESPONSIVE
-           ================================================================ */
-        @media (max-width: 768px) {
-            .left-nav { flex-direction: column; gap: 15px; padding: 15px 10px; }
-            .left-nav ul { gap: 15px; width: 100%; justify-content: center; }
-            .main-container { flex-direction: column; }
-            .cart { position: static; width: auto; min-width: 0; }
-            .menu { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-            .menu-card { height: 380px; padding: 10px; }
-            .menu-card img { height: 120px; }
-            .menu-card h3 { font-size: 15px; height: 45px; }
-        }
+.nav-logo:hover {
+    transform: scale(1.05);
+}
 
-        .flying-img {
-            position: fixed;
-            transition: all 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            z-index: 9999;
-            pointer-events: none;
-            border-radius: 50%;
-            border: 2px solid #dd2476;
-        }
+/* Adjust the header to fit the bigger logo */
+header {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 2000;
+    width: 100%;
+    padding: 10px 0; /* Added padding to give the bigger logo room to breathe */
+}
+
+.left-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 20px; /* Removed vertical padding here since header handles it */
+}
     </style>
 </head>
 <body>
@@ -298,14 +353,14 @@
     <header>
         <div class="left-nav">
             <div class="logo-container">
-                <a href="index.html">
-                    <img src="images/LOGO1.jpg" alt="Karinderya Express Logo" class="nav-logo">
-                </a>
-            </div>
+    <a href="index.html">
+        <img src="images/LOGO1.jpg" alt="Karinderya Express Logo" class="nav-logo">
+    </a>
+</div>
             <nav>
                 <ul>
                     <li><a href="index.html">Home</a></li>
-                    <li><a href="menu.html" class="nav-active">Menu</a></li>
+                    <li><a href="menu.html">Menu</a></li>
                     <li><a href="aboutus.html">About Us</a></li>
                     <li><a href="contact.html">Contact</a></li>
                 </ul>
@@ -313,180 +368,130 @@
         </div>
     </header>
 
-    <div class="categories">
-        <button onclick="filterMenu('all', event)" class="active">All</button>
-        <button onclick="filterMenu('non-soup', event)">Non-Soup</button>
-        <button onclick="filterMenu('soup', event)">Soup</button>
-        <button onclick="filterMenu('fried', event)">Fried</button>
-        <button onclick="filterMenu('drinks', event)">Drinks</button>
-    </div>
+    <div class="container">
+        <h1 class="checkout-title">🧾 Checkout</h1>
 
-    <div class="main-container">
-        <div class="menu" id="menu"></div>
+        <div class="checkout-grid">
+            
+            <div class="cart-summary" id="cart-summary">
+                </div>
 
-        <div class="cart">
-            <h2 style="margin-top:0;">🛒 Cart</h2>
-            <div id="cart-items"></div>
-            <div style="border-top: 1px dashed rgba(255,255,255,0.2); padding-top: 15px;">
-                <small style="opacity:0.6;">Total Amount</small>
-                <div class="total-display">₱<span id="total">0</span></div>
-            </div>
-            <div style="display: flex; gap: 10px; margin-top: 20px;">
-                <button onclick="showClearModal()" style="flex:1; background:rgba(255,255,255,0.1); color:white; border:none; padding:12px; border-radius:10px; cursor:pointer;">Clear</button>
-                <button onclick="checkout()" style="flex:2; background: linear-gradient(135deg, #28a745, #218838); color:white; border:none; border-radius:10px; cursor:pointer; font-weight:bold;">Checkout</button>
-            </div>
-        </div>
-    </div>
+            <div class="checkout-form-container">
+                <form class="checkout-form" id="checkout-form">
+                    <h2>Delivery Details</h2>
+                    <input type="text" id="name" placeholder="Full Name" required>
+                    <input type="text" id="address" placeholder="Delivery Address" required>
+                    <input type="tel" id="phone" placeholder="Phone Number" required>
 
-    <div id="clearModal" class="modal-overlay">
-        <div class="modal-box">
-            <div style="font-size: 50px; margin-bottom: 15px;">🗑️</div>
-            <h2 style="margin:0 0 10px 0;">Clear Cart?</h2>
-            <p style="color:rgba(255,255,255,0.7); margin-bottom:25px; font-size: 16px;">Are you sure you want to remove all items from your tray?</p>
-            <div style="display:flex; gap:15px;">
-                <button onclick="closeClearModal()" style="flex:1; background:rgba(255,255,255,0.1); color:white; border:none; padding:12px; border-radius:10px; cursor:pointer; font-family:'Geist';">Cancel</button>
-                <button onclick="confirmClearCart()" style="flex:1; background:linear-gradient(135deg, #ff512f, #dd2476); color:white; border:none; padding:12px; border-radius:10px; cursor:pointer; font-weight:bold; font-family:'Geist';">Yes, Clear</button>
+                    <h2>Payment</h2>
+                    <select id="payment" required>
+                        <option value="">Select Method</option>
+                        <option value="GCash">GCash</option>
+                        <option value="Cash on Delivery">Cash on Delivery</option>
+                        <option value="Maya">Maya</option>
+                    </select>
+
+                    <button type="submit">PLACE ORDER NOW</button>
+                    <a href="menu.html" class="secondary-btn">← Back to Menu</a>
+                </form>
             </div>
         </div>
     </div>
+
+    <footer>
+        <p>&copy; 2026 Karinderya Express Foods. All Rights Reserved.</p>
+    </footer>
 
     <script>
-        const foods = [
-            { name: "Adobo", price: 80, category: "non-soup", img: "images/adobo.jpg" },
-            { name: "Adobong Kangkong with Tofu", price: 85, category: "non-soup", img: "images/Adobong Kangkong with Tofu.jpg" },
-            { name: "Adobong Sitaw", price: 75, category: "non-soup", img: "images/adobong sitaw.jpg" },
-            { name: "Beef Tapa", price: 120, category: "fried", img: "images/beef tapa.jpg" },
-            { name: "Bicol Express", price: 110, category: "non-soup", img: "images/bicol-express.avif" },
-            { name: "Buko Juice", price: 40, category: "drinks", img: "images/buko.jpg" },
-            { name: "Bukopandan", price: 50, category: "drinks", img: "images/bukopanda.jpg" },
-            { name: "Chicken Drumsticks", price: 95, category: "fried", img: "images/chicken drumsticks.jpg" },
-            { name: "Coffee", price: 30, category: "drinks", img: "images/coffee.jpg" },
-            { name: "Coke", price: 35, category: "drinks", img: "images/coke.jpg" },
-            { name: "Egg", price: 20, category: "fried", img: "images/egg.jpg" },
-            { name: "Fried Tofu", price: 60, category: "fried", img: "images/fried tofu.jpg" },
-            { name: "Kaldereta", price: 110, category: "non-soup", img: "images/kaldereta.jpg" },
-            { name: "Lebron", price: 150, category: "non-soup", img: "images/lebron.jpg" },
-            { name: "Melon Juice", price: 45, category: "drinks", img: "images/melon.jpg" },
-            { name: "Menudo", price: 100, category: "non-soup", img: "images/menudo.jpg" },
-            { name: "Mt. Dew", price: 35, category: "drinks", img: "images/mt.dew.jpg" },
-            { name: "Pinakbet", price: 85, category: "non-soup", img: "images/pinakbet.jpg" },
-            { name: "Pork Belly Kare-Kare", price: 130, category: "non-soup", img: "images/PorkBellyKare-Kare.jpg" },
-            { name: "Pork Bistek", price: 115, category: "non-soup", img: "images/Pork Bistek.jpg" },
-            { name: "Pritong Lumpiang Toque", price: 70, category: "fried", img: "images/prito-lumpiang-togue.jpg" },
-            { name: "Rice", price: 15, category: "non-soup", img: "images/rice.jpg" },
-            { name: "Sagot Gulaman", price: 30, category: "drinks", img: "images/sagotgulaman.jpg" },
-            { name: "Shanghai", price: 80, category: "fried", img: "images/shanghai.jpg" },
-            { name: "Sinigang na Baboy", price: 120, category: "soup", img: "images/sinigangnababoy.jpg" },
-            { name: "Sprite", price: 35, category: "drinks", img: "images/sprite.jpg" },
-            { name: "Sting", price: 25, category: "drinks", img: "images/sting.jpg" },
-            { name: "Tilapia", price: 95, category: "fried", img: "images/tilapia.jpg" }
-        ];
-
         let cart = JSON.parse(localStorage.getItem("cart")) || {};
 
-        function displayMenu(filter = "all") {
-            const menu = document.getElementById("menu");
-            menu.innerHTML = "";
-            foods.forEach(food => {
-                if (filter === "all" || food.category === filter) {
-                    menu.innerHTML += `
-                        <div class="menu-card">
-                            <img src="${food.img}" alt="${food.name}" onerror="this.src='https://via.placeholder.com/150'">
-                            <div class="menu-card-content">
-                                <h3>${food.name}</h3>
-                                <p>₱${food.price}</p>
-                                <button class="add-btn" onclick="addToCart('${food.name}', ${food.price}, '${food.img}', event)">ADD TO CART</button>
-                            </div>
-                        </div>`;
-                }
-            });
-        }
+       // UPDATED RENDER CART FUNCTION
+function renderCart() {
+    const summaryDiv = document.getElementById("cart-summary");
+    summaryDiv.innerHTML = "<h2>Your Order</h2>";
+    
+    const scrollContainer = document.createElement("div");
+    scrollContainer.className = "cart-summary-scroll";
+    
+    let total = 0;
 
-        function filterMenu(category, event) {
-            document.querySelectorAll(".categories button").forEach(btn => btn.classList.remove("active"));
-            event.target.classList.add("active");
-            displayMenu(category);
-        }
+    if (Object.keys(cart).length === 0) {
+        summaryDiv.innerHTML += `<p style="text-align:center; padding: 20px;">Your cart is empty.</p>`;
+        return;
+    }
 
-        function addToCart(name, price, img, e) {
-            if (!cart[name]) cart[name] = { price: price, qty: 1, img: img };
-            else cart[name].qty++;
-            updateCart();
-            animateFlyingItem(e);
-        }
+    for (let item in cart) {
+        const itemData = cart[item];
+        const itemTotal = itemData.price * itemData.qty;
+        total += itemTotal;
 
-        function animateFlyingItem(e) {
-            const btn = e.target;
-            const card = btn.closest('.menu-card');
-            const itemImg = card.querySelector('img');
-            const cartBox = document.querySelector('.cart');
-            const flyingImg = itemImg.cloneNode(true);
-            flyingImg.classList.add('flying-img');
-            document.body.appendChild(flyingImg);
-            const imgRect = itemImg.getBoundingClientRect();
-            const cartRect = cartBox.getBoundingClientRect();
-            
-            flyingImg.style.left = imgRect.left + "px";
-            flyingImg.style.top = imgRect.top + "px";
-            flyingImg.style.width = imgRect.width + "px";
+        // Note: Using button type="button" to prevent form submission
+        scrollContainer.innerHTML += `
+            <div class="order-item">
+                <div class="item-info">
+                    <img src="${itemData.img || 'https://via.placeholder.com/60'}" alt="${item}">
+                    <div>
+                        <span style="font-weight: 500">${item}</span><br>
+                        <small style="opacity:0.6">₱${itemData.price}</small>
+                    </div>
+                </div>
+                <div class="item-controls">
+                    <div class="qty-btns">
+                        <button type="button" onclick="updateQty('${item}', -1)">−</button>
+                        <span>${itemData.qty}</span>
+                        <button type="button" onclick="updateQty('${item}', 1)">+</button>
+                    </div>
+                    <span style="font-weight:600; min-width: 80px; text-align: right;">₱${itemTotal.toLocaleString()}</span>
+                </div>
+            </div>
+        `;
+    }
 
-            setTimeout(() => {
-                flyingImg.style.left = (cartRect.left + 20) + "px";
-                flyingImg.style.top = (cartRect.top + 20) + "px";
-                flyingImg.style.width = "40px";
-                flyingImg.style.height = "40px";
-                flyingImg.style.opacity = "0";
-            }, 50);
-            setTimeout(() => flyingImg.remove(), 700);
-        }
+    summaryDiv.appendChild(scrollContainer);
+    
+    // The Total Due section remains exactly as per your design
+    const totalDiv = document.createElement("div");
+    totalDiv.className = "total";
+    totalDiv.innerHTML = `
+        <span style="font-size:12px; opacity:0.6; text-transform: uppercase;">Total Due:</span><br>
+        ₱${total.toLocaleString()}
+    `;
+    summaryDiv.appendChild(totalDiv);
+}
 
-        function updateCart() {
-            const cartDiv = document.getElementById("cart-items");
-            cartDiv.innerHTML = "";
-            let total = 0;
-            for (let item in cart) {
-                total += cart[item].price * cart[item].qty;
-                cartDiv.innerHTML += `
-                    <div class="cart-item">
-                        <span>${item} (x${cart[item].qty})</span>
-                        <div style="display:flex; gap:5px;">
-                            <button onclick="changeQty('${item}', -1)" style="padding:2px 8px; cursor:pointer; background:rgba(255,255,255,0.1); border:none; color:white; border-radius:4px;">-</button>
-                            <button onclick="changeQty('${item}', 1)" style="padding:2px 8px; cursor:pointer; background:rgba(255,255,255,0.1); border:none; color:white; border-radius:4px;">+</button>
-                        </div>
-                    </div>`;
-            }
-            document.getElementById("total").innerText = total.toLocaleString();
+        function updateQty(item, change) {
+            if (!cart[item]) return;
+            cart[item].qty += change;
+            if (cart[item].qty <= 0) delete cart[item];
             localStorage.setItem("cart", JSON.stringify(cart));
+            renderCart();
         }
 
-        function changeQty(item, change) {
-            if (cart[item].qty + change <= 0) delete cart[item];
-            else cart[item].qty += change;
-            updateCart();
-        }
+        document.getElementById("checkout-form").addEventListener("submit", function(e) {
+            e.preventDefault();
+            if (Object.keys(cart).length === 0) {
+                alert("Your cart is empty!");
+                return;
+            }
 
-        function checkout() {
-            if (Object.keys(cart).length === 0) return alert("Cart is empty!");
-            window.location.href = "checkout.html";
-        }
+            const orderPayload = {
+                orderID: 'DF-' + Math.floor(Math.random() * 1000000),
+                customer: {
+                    name: document.getElementById("name").value,
+                    address: document.getElementById("address").value,
+                    phone: document.getElementById("phone").value,
+                    payment: document.getElementById("payment").value
+                },
+                items: cart,
+                timestamp: new Date().toISOString()
+            };
 
-        /* --- MODAL FUNCTIONS --- */
-        function showClearModal() {
-            document.getElementById("clearModal").style.display = "flex";
-        }
+            localStorage.setItem("currentOrder", JSON.stringify(orderPayload));
+            localStorage.removeItem("cart");
+            window.location.href = "success.html";
+        });
 
-        function closeClearModal() {
-            document.getElementById("clearModal").style.display = "none";
-        }
-
-        function confirmClearCart() {
-            cart = {};
-            updateCart();
-            closeClearModal();
-        }
-
-        displayMenu();
-        updateCart();
+        document.addEventListener("DOMContentLoaded", renderCart);
     </script>
 </body>
 </html>
