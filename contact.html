@@ -199,18 +199,40 @@
         }
 
 
-        /* Add this to your CSS section */
+/* Updated Logo Style */
 .nav-logo {
-    height: 50px;    /* Adjust this height to fit your logo preference */
-    width: auto;     /* Keeps the logo from stretching */
+    height: 80px;    /* Increased from 50px to 80px */
+    width: auto;     /* Maintains aspect ratio */
     display: block;
     transition: transform 0.3s ease;
+    filter: drop-shadow(0px 4px 8px rgba(0,0,0,0.3)); /* Adds depth */
 }
 
 .nav-logo:hover {
-    transform: scale(1.05); /* Optional: slight pop when hovering */
+    transform: scale(1.05);
 }
 
+/* Adjust the header to fit the bigger logo */
+header {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 2000;
+    width: 100%;
+    padding: 10px 0; /* Added padding to give the bigger logo room to breathe */
+}
+
+.left-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 20px; /* Removed vertical padding here since header handles it */
+}
 /* Ensure the container doesn't push things around */
 .logo-container {
     display: flex;
