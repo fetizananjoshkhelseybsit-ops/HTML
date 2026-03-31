@@ -2,124 +2,386 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Karinderya Express Express Foods - Home</title>
-  <link href="https://fonts.googleapis.com/css2?family=Gantari:wght@300;700&family=Fira+Sans:wght@400;600&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Karinderya Express | Authentic Filipino Comfort</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Geist', sans-serif; background: #0f0c29; color: #fff; overflow-x: hidden; line-height: 1.6; }
+
+    /* ==========================================
+       FIXED NAVIGATION
+       ========================================== */
+    header {
+      position: fixed; top: 0; left: 0; width: 100%; height: 75px;
+      z-index: 10000 !important; background: rgba(15, 12, 41, 0.96);
+      backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex; align-items: center;
+    }
+    .nav-container {
+      max-width: 1200px; width: 100%; margin: 0 auto;
+      display: flex; justify-content: space-between; align-items: center; padding: 0 20px;
+    }
+    .logo img { height: 45px; display: block; border-radius: 4px; }
+    .nav-menu { display: flex; list-style: none; gap: 25px; }
+    .nav-menu a { color: #fff; text-decoration: none; font-size: 14px; font-weight: 500; opacity: 0.8; transition: 0.3s; }
+    .nav-menu a:hover { opacity: 1; color: #ff512f; }
+
+    .cart-btn {
+      background: linear-gradient(135deg, #ff512f, #dd2476);
+      padding: 10px 20px; border-radius: 50px; color: white;
+      text-decoration: none; font-weight: 700; display: flex; gap: 8px; font-size: 13px;
+    }
+
+    /* ==========================================
+       LIVE IMAGE SLIDER (Updated)
+       ========================================== */
+    .hero-slider { position: relative; width: 100%; height: 80vh; overflow: hidden; background: #000; }
+    
+    .slide {
+      position: absolute; inset: 0; opacity: 0;
+      transition: opacity 1.5s ease-in-out, transform 4s ease-out;
+      background-size: cover; background-position: center;
+      display: flex; align-items: center; justify-content: center;
+      transform: scale(1.1); /* Subtle zoom start */
+      z-index: 1;
+    }
+    
+    /* When active, fade in and zoom in slightly */
+    .slide.active { 
+      opacity: 1; 
+      transform: scale(1); 
+      z-index: 2; 
+    }
+
+    .slide-content {
+      position: relative; z-index: 10;
+      background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 45px; border-radius: 30px; text-align: center;
+      max-width: 550px; margin: 0 20px; border: 1px solid rgba(255,255,255,0.1);
+    }
+    .slide-content h1 { font-size: clamp(2.2rem, 8vw, 3.5rem); margin-bottom: 10px; font-weight: 800; line-height: 1.1; }
+    .slide-content span { color: #ff512f; }
+    .btn-order {
+      display: inline-block; margin-top: 25px; padding: 16px 45px;
+      background: #ff512f; color: white; text-decoration: none;
+      border-radius: 50px; font-weight: 700; text-transform: uppercase;
+      box-shadow: 0 8px 20px rgba(255, 81, 47, 0.4);
+      transition: 0.3s ease;
+    }
+    .btn-order:hover { transform: scale(1.05); background: #ff6a4d; }
+
+    /* ==========================================
+       SECTIONS
+       ========================================== */
+    .about-summary { padding: 80px 25px; max-width: 900px; margin: 0 auto; text-align: center; }
+    .about-summary h2 { color: #ff512f; margin-bottom: 20px; font-size: 2.2rem; }
+    .about-summary p { font-size: 1.15rem; color: rgba(255,255,255,0.85); line-height: 1.8; }
+
+    .menu-highlights { padding: 40px 20px 100px; max-width: 1200px; margin: 0 auto; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+    
+    .food-card {
+      background: rgba(255,255,255,0.03); border-radius: 25px; overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.08); transition: 0.4s ease;
+    }
+    .food-card:hover { transform: translateY(-10px); border-color: #ff512f; background: rgba(255,255,255,0.06); }
+    .food-card img { width: 100%; height: 250px; object-fit: cover; transition: 0.5s; }
+    .food-card:hover img { transform: scale(1.08); }
+    .food-info { padding: 25px; text-align: center; }
+    .food-info h3 { margin-bottom: 10px; font-size: 1.5rem; color: #ff512f; }
+
+    @media (max-width: 768px) {
+      .nav-menu { display: none; }
+      .hero-slider { height: 75vh; }
+      .slide-content { padding: 30px 20px; }
+    }
+
+    /* ==========================================
+       CLEAN FOOTER STYLING
+       ========================================== */
+    .main-footer {
+      background: #07051a;
+      padding: 80px 20px 30px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      margin-top: 50px;
+    }
+
+    .footer-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1.5fr; /* Logo on left, Story on right */
+      gap: 60px;
+      align-items: center;
+    }
+
+    /* Brand Section */
+    .footer-brand {
+      text-align: center;
+      border-right: 1px solid rgba(255, 255, 255, 0.1);
+      padding-right: 40px;
+    }
+
+    .footer-logo {
+      height: 90px;
+      margin-bottom: 15px;
+      border-radius: 12px;
+      transition: transform 0.3s ease;
+    }
+    
+    .footer-name { font-size: 2rem; margin-bottom: 5px; }
+    .footer-name span { color: #ff512f; }
+    .footer-tagline { font-size: 0.9rem; opacity: 0.6; font-style: italic; }
+
+    /* Story Section */
+    .footer-story h3 { 
+      color: #ff512f; 
+      margin-bottom: 15px; 
+      font-size: 1.3rem; 
+      text-transform: uppercase; 
+      letter-spacing: 1.5px; 
+    }
+    .footer-story p { 
+      font-size: 1.05rem; 
+      line-height: 1.8; 
+      opacity: 0.8; 
+      font-weight: 300;
+    }
+
+    /* Bottom Copyright */
+    .footer-bottom {
+      text-align: center;
+      margin-top: 60px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    
+    .copyright { font-size: 0.85rem; opacity: 0.4; }
+
+    /* Mobile Footer Adjustment */
+    @media (max-width: 850px) {
+      .footer-container {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 40px;
+      }
+      .footer-brand {
+        border-right: none;
+        padding-right: 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding-bottom: 40px;
+      }
+    }
+@media (max-width: 768px) {
+  .nav-container {
+    display: flex;
+    justify-content: space-between; /* Spreads Toggle, Logo, and Cart */
+    align-items: center;
+    width: 100%;
+  }
+
+  .menu-toggle {
+    display: block;
+    order: 1; /* Leftmost position */
+    width: 40px; /* Gives it a consistent hit area */
+  }
+
+  .logo {
+    order: 2; /* Centered position */
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .cart-btn {
+    order: 3; /* Rightmost position */
+    z-index: 10;
+  }
+
+  .nav-menu {
+    position: fixed;
+    top: 75px;
+    left: -100%; /* Now slides in from the LEFT */
+    right: auto;
+    background: rgba(15, 12, 41, 0.98);
+    backdrop-filter: blur(15px);
+    width: 80%;
+    height: 100vh;
+    flex-direction: column;
+    padding-top: 50px;
+    transition: 0.4s ease-in-out;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+  }
+
+  .nav-menu.active {
+    left: 0; /* Slides into view */
+  }
+}
+
+  </style>
 </head>
-<body class="home">
+<body>
+
   <header>
-    <div class="left-nav">
-    <div class="logo-container">
-    <a href="index.html">
-        <img src="images/LOGO1.jpg" alt="Karinderya Express Logo" class="nav-logo">
+  <div class="nav-container">
+    <div class="menu-toggle" id="mobile-menu">
+      <i class="fas fa-bars"></i>
+    </div>
+
+    <div class="logo">
+      <a href="index.html"><img src="images/LOGO1.jpg" alt="Karinderya Express Logo"></a>
+    </div>
+
+    <ul class="nav-menu" id="nav-list">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="menu.html">Full Menu</a></li>
+      <li><a href="aboutus.html">About Us</a></li>
+      <li><a href="contact.html">Contact  </a></li>
+    </ul>
+
+    <a href="checkout.html" class="cart-btn">
+      <i class="fas fa-shopping-basket"></i>
+      <span id="cart-count">0</span>
     </a>
-</div>
-    <nav>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="menu.html">Menu</a></li>
-        <li><a href="aboutus.html">About Us</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-    </nav>
-  </div>  
-        <li id="checkout-btn"> 
-  <a href="checkout.html">
-    CheckOut
-    <!-- Cart icon -->
-    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16" style="margin-left:5px;">
-      <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
-    </svg>
-  </a>
-</li> 
+  </div>
+</header>
 
+  <section class="hero-slider">
+    <div class="slide active" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('images/hero.png');">
+      <div class="slide-content">
+        <h1>Karinderya <span>Express</span></h1>
+        <p>Lutong bahay, delivered with love.</p>
+        <a href="menu.html" class="btn-order">View Our Menu</a>
+      </div>
+    </div>
+
+    <div class="slide" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('images/adobo.jpg');">
+      <div class="slide-content">
+        <h1>Signature <span>Adobo</span></h1>
+        <p>Generational recipes, slow-braised to perfection.</p>
+        <a href="menu.html" class="btn-order">Order Now</a>
+      </div>
+    </div>
+
+    <div class="slide" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('images/shanghai.jpg');">
+      <div class="slide-content">
+        <h1>Crispy <span>Shanghai</span></h1>
+        <p>The ultimate crunch in every bite.</p>
+        <a href="menu.html" class="btn-order">Order Now</a>
+      </div>
+    </div>
+
+    <div class="slide" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('images/melon.jpg');">
+      <div class="slide-content">
+        <h1>Fresh <span>Melon</span></h1>
+        <p>Refreshing house-made juice to beat the heat.</p>
+        <a href="menu.html" class="btn-order">Order Now</a>
+      </div>
+    </div>
+  </section>
+
+  <button id="backToTop" title="Go to top"><i class="fas fa-chevron-up"></i></button>
+
+  <section class="about-summary">
+    <h2>Our Story</h2>
+    <p>
+      Karinderya Express brings the authentic, comforting flavors of a traditional Filipino kitchen directly to your doorstep with modern efficiency. 
+      We deliver the warmth and hospitality of a classic karinderya in every hot, steaming bowl.
+    </p>
+  </section>
+
+  <section class="menu-highlights">
+    <div class="grid">
+      <div class="food-card">
+        <img src="images/adobo.jpg" alt="Chicken Adobo">
+        <div class="food-info">
+          <h3>Chicken Adobo</h3>
+          <p>The national favorite.</p>
+        </div>
+      </div>
+      <div class="food-card">
+        <img src="images/shanghai.jpg" alt="Lumpiang Shanghai">
+        <div class="food-info">
+          <h3>Lumpiang Shanghai</h3>
+          <p>Always crispy, always fresh.</p>
+        </div>
+      </div>
+      <div class="food-card">
+        <img src="images/melon.jpg" alt="Melon Juice">
+        <div class="food-info">
+          <h3>Fresh Melon Juice</h3>
+          <p>Sweet and ice cold.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+<footer class="main-footer">
+    <div class="footer-container">
       
-  </header>
+      <div class="footer-brand">
+        <img src="images/LOGO1.jpg" alt="Karinderya Express Logo" class="footer-logo">
+        <h2 class="footer-name">Karinderya <span>Express</span></h2>
+        <p class="footer-tagline">Authentic Flavors, Modern Delivery.</p>
+      </div>
 
-  <!-- Hero  -->
-  <section class="hero">
-  <div class="hero-text">
-    <h1>Order Delicious Food Anytime, Anywhere!</h1>
-    <a href="menu.html" 
-    class="btn">Order Now</a>
-  </div>
-</section>
+      <div class="footer-story">
+        <h3>Our History</h3>
+        <p>
+          Born from a passion for traditional Filipino flavors, <strong>Karinderya Express</strong> 
+          was created to bridge the gap between busy modern lives and the comforting taste of home. 
+          What started as a small family recipe book has evolved into a digital-first kitchen, 
+          dedicated to serving slow-cooked Adobo and crispy Shanghai with the speed of today's 
+          technology. We believe that everyone deserves a "lutong bahay" meal, no matter how 
+          fast the world is moving. Our mission is to deliver the warmth and hospitality of a 
+          classic <i>karinderya</i> in every hot, steaming bowl.
+        </p>
+      </div>
 
-
-
-<!-- Our Best Sellers -->
-<section class="popular">
-  <h2>Our Popular Dishes</h2>
-  <div class="dish-container">
-    <div class="dish">
-      <img src="images/sinigangnababoy.jpg">
-      <h3>Pork Sinigang</h3>
-      <p>Classic Filipino soup with a rich, tangy flavor.</p>
     </div>
-    <div class="dish">
-      <img src="images/adobo.jpg">
-      <h3>Chicken Adobo</h3>
-      <p>Classic chicken simmered in soy-vinegar sauce.</p>
+    
+    <div class="footer-bottom">
+      <p class="copyright">&copy; 2026 Karinderya Express. All rights reserved.</p>
     </div>
-    <div class="dish">
-      <img src="images/PorkBellyKare-Kare.jpg">
-      <h3>Pork Kare-Kare</h3>
-      <p>Rich peanut stew with tender pork.</p>
-    </div>
-    <div class="dish">
-      <img src="images/bicol-express.avif">
-      <h3>Bicol Express</h3>
-      <p>Spicy pork in coconut milk.</p>
-    </div>
-  </div>
-</section>
+  </footer>
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    let currentSlide = 0;
+    const slideInterval = 5000; // 5 seconds per slide
 
-<!-- Craving Comfort Food? -->
-<section class="feature">
-  <div class="feature-text">
-    <h2>Craving comfort food? We’ve got you covered.</h2>
-    <p>Order your favorites anytime, anywhere.</p>
-  </div>
-  <img src="images/comfort-food.jpg">
-</section>
+    function nextSlide() {
+      // Remove active class from current slide
+      slides[currentSlide].classList.remove('active');
+      
+      // Move to next slide
+      currentSlide = (currentSlide + 1) % slides.length;
+      
+      // Add active class to next slide
+      slides[currentSlide].classList.add('active');
+    }
 
+    // Initialize the loop
+    setInterval(nextSlide, slideInterval);
 
-<!-- Features -->
-<section class="services">
-  <div class="card">
-    <img src="images/delivery.jpg">
-    <h3>Fast & Reliable</h3>
-    <p>Fast and reliable delivery you can count on. Hot meals, delivered right on time.</p>
-  </div>
-  <div class="card">
-    <img src="images/discount.jpg">
-    <h3>Referral Discounts</h3>
-    <p>Invite friends and get 5–10% off your next order. Share the love—earn discounts when your friends order.</p>
-  </div>
-  <div class="card">
-    <h3>Affordable Delivery</h3>
-    <p>Enjoy your favorites with minimal delivery fees. Great food, low delivery cost.</p>
-  </div>
-  <div class="card">
-    <h3>Easy to Use</h3>
-    <p>Simple ordering in just a few clicks. Easy, smooth, and hassle-free experience.</p>
-  </div>
-</section>
+    const menuToggle = document.getElementById('mobile-menu');
+const navList = document.getElementById('nav-list');
 
-
-  <!-- FOOTER -->
-<footer>
-  <h2>TITLE</h2>
-  <p>Privacy Policy | Terms | Pricing</p>
-</footer>
-
-
-
-
-
-
+menuToggle.addEventListener('click', () => {
+  navList.classList.toggle('active');
+  
+  const icon = menuToggle.querySelector('i');
+  if (navList.classList.contains('active')) {
+    icon.classList.replace('fa-bars', 'fa-times');
+  } else {
+    icon.classList.replace('fa-times', 'fa-bars');
+  }
+});
+  </script>
 
 </body>
 </html>
