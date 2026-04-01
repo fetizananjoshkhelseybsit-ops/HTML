@@ -80,6 +80,40 @@
            3. MAIN LAYOUT GRID
            ================================================================
         */
+
+/* Updated for better readability */
+.checkout-form input,
+.checkout-form select {
+    width: 100%;
+    padding: 14px;
+    margin: 10px 0;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Slightly more visible border */
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff; /* High contrast white text */
+    box-sizing: border-box;
+    outline: none;
+    font-family: inherit;
+    font-size: 16px; /* Prevents auto-zoom on mobile */
+}
+
+/* Make placeholders much clearer */
+.checkout-form input::placeholder {
+    color: rgba(255, 255, 255, 0.6); /* Increased opacity from 0.4 to 0.6 */
+}
+
+/* Fix for Safari/Chrome placeholders */
+.checkout-form input::-webkit-input-placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+/* Highlight the field when the user clicks it */
+.checkout-form input:focus {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
         .container {
             max-width: 1200px;
             margin: 40px auto;

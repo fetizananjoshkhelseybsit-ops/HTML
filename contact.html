@@ -153,6 +153,20 @@
             outline: none;
             transition: 0.3s;
         }
+/* This targets the placeholder text specifically */
+.contact-card input::placeholder, 
+.contact-card textarea::placeholder {
+    color: rgba(255, 255, 255, 0.5); /* Semi-transparent white */
+    font-size: 14px;
+}
+
+/* Optional: change color when the user clicks into the box */
+.contact-card input:focus::placeholder,
+.contact-card textarea:focus::placeholder {
+    color: #ff4d4d; /* Matches your theme's red accent */
+}
+
+
 
         .contact-card input:focus, 
         .contact-card textarea:focus {
